@@ -1,15 +1,16 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
-import HomePage from "../pages/HomePage";
-import Profile from "../pages/PetsSupplies";
+import HomePage from "../pages/Homepage";
+import PetsSupplies from "../pages/PetsSupplies"; // Public or My Listings
 import Signup from "../pages/Signup";
 import Signin from "../pages/Login";
-import Services from "../pages/AddListing";
-import ServiceDetails from "../pages/ListingDetails";
-import CategoryFilteredProducts from "../pages/CategoryFilteredProducts";
-import ListingDetails from "../pages/ListingDetails"; // New page
+import AddListing from "../pages/AddListing";
+import ListingDetails from "../pages/ListingDetails";
+import MyOrders from "../pages/MyOrders";
 import PrivateRoute from "../privateRoute/PrivateRoute";
-import ForgotPassword from "../pages/ForgotPassword";
+import NotFound from "../pages/NotFound"; // 404 Page
+
+// Remove CategoryFilteredProducts because the page doesn't exist yet
 
 export const router = createBrowserRouter([
   {
@@ -21,12 +22,8 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/profile",
-        element: (
-          <PrivateRoute>
-            <Profile />
-          </PrivateRoute>
-        ),
+        path: "/pets-supplies", // Public listing page
+        element: <PetsSupplies />,
       },
       {
         path: "/signup",
@@ -37,24 +34,32 @@ export const router = createBrowserRouter([
         element: <Signin />,
       },
       {
-        path: "/forgot-password",
-        element: <ForgotPassword />,
+        path: "/add-listing",
+        element: (
+          <PrivateRoute>
+            <AddListing />
+          </PrivateRoute>
+        ),
       },
       {
-        path: "/services",
-        element: <Services />,
+        path: "/listing-details/:id",
+        element: (
+          <PrivateRoute>
+            <ListingDetails />
+          </PrivateRoute>
+        ),
       },
       {
-        path: "/service/:id",
-        element: <ServiceDetails />,
+        path: "/my-orders",
+        element: (
+          <PrivateRoute>
+            <MyOrders />
+          </PrivateRoute>
+        ),
       },
       {
-        path: "/category-filtered-product/:categoryName",
-        element: <CategoryFilteredProducts />,
-      },
-      {
-        path: "/listing-details/:id", // New route for recent listings
-        element: <ListingDetails />,
+        path: "*", // 404 Not Found
+        element: <NotFound />,
       },
     ],
   },
