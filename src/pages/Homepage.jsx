@@ -1,61 +1,79 @@
-// import React, { useEffect, useState } from "react";
-// import Banner from "../components/Banner";
-// import Card from "../components/Card";
-// import HomeExtras from "../components/HomeExtras"; 
-// import { tipsData } from "../data/fakeData";
-// import ExtraSection from "./ExtraSection";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Banner from "../components/Banner";
+import Card from "../components/Card";
+import HomeExtras from "../components/HomeExtras";
+import ExtraSection from "./ExtraSection";
 
-// const HomePage = () => {
-//   const [services, setServices] = useState([]);
+const categories = [
+  { name: "Pets (Adoption)", emoji: "🐶" },
+  { name: "Pet Food", emoji: "🍖" },
+  { name: "Accessories", emoji: "🧸" },
+  { name: "Pet Care Products", emoji: "🧴" },
+];
 
-//   useEffect(() => {
-//     fetch("/services.json")
-//       .then((res) => res.json())
-//       .then((data) => setServices(data))
-//       .catch((err) => console.error("Failed to load services:", err));
-//   }, []);
+const HomePage = () => {
+  const [listings, setListings] = useState([]);
+  const navigate = useNavigate();
 
-//   return (
-//     <div className="space-y-20">
+  // Fetch latest 6 listings from MongoDB
+  useEffect(() => {
+    fetch("http://localhost:3000/latest-list") // your backend endpoint
+      .then((res) => res.json())
+      .then((data) => setListings(data))
+      .catch((err) => console.error("Failed to load listings:", err));
+  }, []);
 
-      
-//       <section>
-//         <Banner />
-//       </section>
+  const handleCategoryClick = (categoryName) => {
+    navigate(`/category-filtered-product/${categoryName}`);
+  };
 
-      
-//       <section className="w-11/12 mx-auto">
-//         <h2 className="text-3xl font-bold text-center mb-8">Popular Winter Care Services</h2>
-//         <div className="grid md:grid-cols-3 gap-8">
-//           {services.map((service) => (
-//             <Card key={service.serviceId} service={service} />
-//           ))}
-//         </div>
-//       </section>
+  return (
+    <div className="space-y-20">
 
-      
-//       <section className="w-11/12 mx-auto">
-//         <h2 className="text-3xl font-bold text-center mb-8">Winter Care Tips for Pets</h2>
-//         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-//           {tipsData.map((tip, i) => (
-//             <div key={i} className="bg-white/80 backdrop-blur-md p-6 rounded-xl shadow hover:shadow-lg transition">
-//               <h3 className="font-semibold text-xl mb-2">{tip.title}</h3>
-//               <p className="text-gray-700">{tip.description}</p>
-//             </div>
-//           ))}
-//         </div>
-//       </section>
+      {/* Banner */}
+      <section>
+        <Banner />
+      </section>
 
-      
-//       <section className="w-11/12 mx-auto">
-//         <HomeExtras />
-//       </section>
-      
-//       <section className="w-11/12 mx-auto">
-//         <ExtraSection />
-//       </section>
-//     </div>
-//   );
-// };
+      {/* Category Section */}
+      <section className="w-11/12 mx-auto my-12">
+        <h2 className="text-3xl font-bold text-center mb-8">Shop by Category</h2>
+        <div className="grid md:grid-cols-4 gap-6">
+          {categories.map((cat) => (
+            <div
+              key={cat.name}
+              onClick={() => handleCategoryClick(cat.name)}
+              className="cursor-pointer bg-white rounded-xl shadow-md hover:shadow-xl p-6 flex flex-col items-center justify-center transition-transform hover:scale-105"
+            >
+              <span className="text-5xl mb-4">{cat.emoji}</span>
+              <h3 className="text-xl font-semibold text-center">{cat.name}</h3>
+            </div>
+          ))}
+        </div>
+      </section>
 
-// export default HomePage;
+      {/* Recent Listings */}
+      <section className="w-11/12 mx-auto">
+        <h2 className="text-3xl font-bold text-center mb-8">Recent Listings</h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          {listings.map((listing) => (
+            <Card key={listing._id} listing={listing} />
+          ))}
+        </div>
+      </section>
+
+      {/* Home Extras / Pet Heroes Section */}
+      <section className="w-11/12 mx-auto">
+        <HomeExtras />
+      </section>
+
+      {/* Extra Section / Awareness */}
+      <section className="w-11/12 mx-auto">
+        <ExtraSection />
+      </section>
+    </div>
+  );
+};
+
+export default HomePage;

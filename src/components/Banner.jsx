@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import slide1 from "../assets/slide1.webp";
 import slide2 from "../assets/slide2.avif";
 import slide3 from "../assets/slide3.webp";
-import slide4 from "../assets/slide4.webp"; // Make sure you have a 4th image
+import slide4 from "../assets/slide4.avif";
 
 const Banner = () => {
   const slides = [
