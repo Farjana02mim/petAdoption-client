@@ -23,8 +23,6 @@ const Navbar = () => {
   return (
     <div className="bg-gradient-to-r from-pink-500 via-orange-400 to-red-400 shadow-lg relative">
       <MyContainer className="flex items-center justify-between py-3 relative">
-
-        {/* ----------- LOGO ----------- */}
         <div className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="w-[45px]" />
           <h1 className="text-white text-2xl font-semibold tracking-wide">
@@ -41,6 +39,9 @@ const Navbar = () => {
           {/* After Login Menus */}
           {user && (
             <>
+              <li><MyLink to="/add-listing">Add Listing</MyLink></li>
+              <li><MyLink to="/my-listings">My Listings</MyLink></li>
+              <li><MyLink to="/my-orders">My Orders</MyLink></li>
               <li><MyLink to="/add-listing">Add Listing</MyLink></li>
               <li><MyLink to="/my-listings">My Listings</MyLink></li>
               <li><MyLink to="/my-orders">My Orders</MyLink></li>
