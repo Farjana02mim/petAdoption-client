@@ -34,7 +34,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-pink-500 via-orange-400 to-red-400 shadow-lg relative">
+    <div className="bg-gradient-to-r from-pink-500 via-orange-400 flex items-center to-red-400 shadow-lg relative">
       <MyContainer className="flex items-center justify-between py-3 relative">
         <div className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="w-[45px]" />
@@ -123,7 +123,7 @@ const Navbar = () => {
           <ul className="absolute top-full left-0 w-full bg-pink-500 text-white flex flex-col gap-2 p-4 lg:hidden z-20">
             
             <li><MyLink to="/" onClick={() => setMenuOpen(false)}>Home</MyLink></li>
-            <li><MyLink to="/pets" onClick={() => setMenuOpen(false)}>Pets & Supplies</MyLink></li>
+            <li><MyLink to="/pets-supplies" onClick={() => setMenuOpen(false)}>Pets & Supplies</MyLink></li>
 
             {user && (
               <>
@@ -154,14 +154,15 @@ const Navbar = () => {
             )}
           </ul>
         )}
-<div>
-                            <input
+
+      </MyContainer>
+      <div>
+          <input
            onChange={(e)=> handleTheme(e.target.checked)}
            type="checkbox"
            defaultChecked={localStorage.getItem('theme') === "dark"}
            className="toggle"/>
           </div>
-      </MyContainer>
     </div>
   );
 };
