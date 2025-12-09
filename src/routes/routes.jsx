@@ -7,7 +7,7 @@ import Signin from "../pages/Login";
 import AddListing from "../pages/AddListing";
 import ListingDetails from "../pages/ListingDetails";
 import MyOrders from "../pages/MyOrders";
-import MyListings from "../pages/MyListings"; // নতুন import
+import MyListings from "../pages/MyListings";
 import PrivateRoute from "../privateRoute/PrivateRoute";
 import NotFound from "../pages/NotFound";
 import CategoryFilteredProducts from "../pages/CategoryFilteredProducts";
@@ -47,14 +47,16 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/my-listings", // নতুন route
+        path: "/my-listings",
         element: (
           <PrivateRoute>
             <MyListings />
           </PrivateRoute>
         ),
       },
-      { path: "*", element: <NotFound /> },
     ],
   },
+
+  // 404 Page route outside MainLayout
+  { path: "*", element: <NotFound /> },
 ]);
