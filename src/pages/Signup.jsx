@@ -70,7 +70,8 @@ const Signup = () => {
       toast.success("Signed in with Google!");
       navigate("/");
     } catch (err) {
-      toast.error(err.message);
+      console.error("Google Sign-In Error:", err);
+      toast.error(err.message || "Google sign-in failed!");
     } finally {
       setLoadingBtn(false);
     }
@@ -88,7 +89,7 @@ const Signup = () => {
           {/* Left */}
           <div className="max-w-lg text-center lg:text-left">
             <h1 className="text-5xl font-extrabold text-[#E0557E] drop-shadow">
-              Create Your Account 🐾
+              Create Your Account
             </h1>
             <p className="mt-4 text-lg text-gray-700 leading-relaxed">
               Join the pet care community and keep your furry friends warm ❄️🐶
@@ -98,7 +99,7 @@ const Signup = () => {
           {/* Form */}
           <div className="w-full max-w-md backdrop-blur-xl bg-white/60 border border-pink-200 shadow-xl rounded-2xl p-8">
             <h2 className="text-2xl font-semibold mb-4 text-center text-[#D9466E]">
-              Sign Up
+              Register Now
             </h2>
 
             <form onSubmit={handleSignup} className="space-y-4">
@@ -110,16 +111,6 @@ const Signup = () => {
                   placeholder="Pet Lover"
                   className="input input-bordered w-full bg-white/80 text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-300"
                   required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-1 text-gray-700">Photo URL</label>
-                <input
-                  type="text"
-                  name="photo"
-                  placeholder="https://example.com/photo.jpg"
-                  className="input input-bordered w-full bg-white/80 text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-300"
                 />
               </div>
 
@@ -151,6 +142,16 @@ const Signup = () => {
                 </span>
               </div>
 
+              <div>
+                <label className="block text-sm font-medium mb-1 text-gray-700">Photo URL</label>
+                <input
+                  type="text"
+                  name="photo"
+                  placeholder="https://example.com/photo.jpg"
+                  className="input input-bordered w-full bg-white/80 text-gray-700 focus:outline-none focus:ring-2 focus:ring-pink-300"
+                />
+              </div>
+
               <button
                 type="submit"
                 disabled={loadingBtn}
@@ -163,13 +164,22 @@ const Signup = () => {
                 {loadingBtn ? "Processing..." : "Register"}
               </button>
 
+              <div className="flex items-center justify-center gap-2 my-2">
+                <div className="h-px w-16 bg-gray-300"></div>
+                <span className="text-sm text-gray-600">or</span>
+                <div className="h-px w-16 bg-gray-300"></div>
+              </div>
+
               <button
                 type="button"
                 onClick={handleGoogleSignup}
-                disabled={loadingBtn}
-                className="flex items-center justify-center gap-3 px-5 py-2 rounded-lg w-full font-semibold border mt-2 bg-white border-gray-300 hover:bg-gray-50"
+                className="flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-800 px-5 py-2 rounded-lg w-full font-semibold hover:bg-gray-50"
               >
-                {loadingBtn ? "Processing..." : "Continue with Google"}
+                <img
+                  src="https://www.svgrepo.com/show/475656/google-color.svg"
+                  className="w-5 h-5"
+                />
+                Continue with Google
               </button>
 
               <p className="text-center text-sm text-gray-700 mt-3">

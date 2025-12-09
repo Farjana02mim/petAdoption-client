@@ -6,10 +6,10 @@ import HomeExtras from "../components/HomeExtras";
 import ExtraSection from "./ExtraSection";
 
 const categories = [
-  { name: "Pets", emoji: "🐶" },
-  { name: "Pet Food", emoji: "🍖" },
-  { name: "Accessories", emoji: "🧸" },
-  { name: "Pet Care Products", emoji: "🧴" },
+  { name: "Pets", emoji: "🐶", value: "Pets" },
+  { name: "Pet Food", emoji: "🍖", value: "Food" },
+  { name: "Accessories", emoji: "🧸", value: "Accessories" },
+  { name: "Pet Care Products", emoji: "🧴", value: "Care Products" },
 ];
 
 const HomePage = () => {
@@ -24,8 +24,8 @@ const HomePage = () => {
       .catch((err) => console.error("Failed to load listings:", err));
   }, []);
 
-  const handleCategoryClick = (categoryName) => {
-    navigate(`/category-filtered-product/${categoryName}`);
+  const handleCategoryClick = (category) => {
+    navigate(`/category-filtered-product/${category.value}`);
   };
 
   return (
@@ -42,7 +42,7 @@ const HomePage = () => {
           {categories.map((cat) => (
             <div
               key={cat.name}
-              onClick={() => handleCategoryClick(cat.name)}
+              onClick={() => handleCategoryClick(cat)}
               className="cursor-pointer bg-white rounded-xl shadow-md hover:shadow-xl p-6 flex flex-col items-center justify-center transition-transform hover:scale-105"
             >
               <span className="text-5xl mb-4">{cat.emoji}</span>

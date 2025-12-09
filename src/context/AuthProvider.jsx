@@ -37,7 +37,8 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const signInWithEmailFunc = () => {
+  // Updated name for Google Sign-In
+  const signInWithGoogleFunc = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
@@ -64,7 +65,7 @@ const AuthProvider = ({ children }) => {
     setLoading,
     createUserWithEmailAndPasswordFunc,
     signInWithEmailAndPasswordFunc,
-    signInWithEmailFunc,
+    signInWithGoogleFunc, // Updated here
     signInWithGithubFunc,
     signoutUserFunc,
     sendPassResetEmailFunc,
@@ -81,11 +82,7 @@ const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  return (
-    <AuthContext.Provider value={authInfo}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
