@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
+import Swal from "sweetalert2";
 import "react-toastify/dist/ReactToastify.css";
 
 const MyListings = () => {
@@ -16,9 +17,7 @@ const MyListings = () => {
       try {
         const token = await user.getIdToken();
         const res = await fetch(`http://localhost:3000/listings`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
         setListings(data);
@@ -33,23 +32,34 @@ const MyListings = () => {
   }, [user]);
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this listing?")) return;
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "This listing will be permanently deleted!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
 
-    try {
-      const token = await user.getIdToken();
-      const res = await fetch(`http://localhost:3000/listings/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await res.json();
-      if (data.success) {
-        toast.success("Listing deleted!");
-        setListings(listings.filter((l) => l._id !== id));
-      } else {
-        toast.error("Delete failed");
+    if (result.isConfirmed) {
+      try {
+        const token = await user.getIdToken();
+        const res = await fetch(`http://localhost:3000/listings/${id}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          setListings(listings.filter((l) => l._id !== id));
+          Swal.fire("Deleted!", "Listing has been deleted.", "success");
+        } else {
+          Swal.fire("Error!", "Delete failed.", "error");
+        }
+      } catch (err) {
+        Swal.fire("Error!", "Delete failed.", "error");
       }
-    } catch (err) {
-      toast.error("Delete failed");
     }
   };
 
