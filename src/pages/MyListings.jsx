@@ -136,11 +136,11 @@ const MyListings = () => {
               ) : (
                 listings.map((l) => (
                   <tr key={l._id} className="border-t">
-                    <td className="px-4 py-2">{l.name}</td>
-                    <td className="px-4 py-2">{l.category}</td>
-                    <td className="px-4 py-2">${l.price}</td>
-                    <td className="px-4 py-2">{l.location}</td>
-                    <td className="px-4 py-2 flex gap-2">
+                    <td className="px-4 text-black py-2">{l.name}</td>
+                    <td className="px-4 text-black py-2">{l.category}</td>
+                    <td className="px-4 text-black py-2">${l.price}</td>
+                    <td className="px-4 text-black py-2">{l.location}</td>
+                    <td className="px-4 text-black py-2 flex gap-2">
                       <button
                         className="bg-orange-300 px-2 py-1 rounded text-white"
                         onClick={() => handleEdit(l)}

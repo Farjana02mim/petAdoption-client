@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import MyContainer from "./MyContainer";
 import MyLink from "./MyLink";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { ClockLoader } from "react-spinners";
@@ -10,6 +10,19 @@ import { ClockLoader } from "react-spinners";
 const Navbar = () => {
   const { user, signoutUserFunc, setUser, loading } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || "light")
+
+  useEffect(() => {
+    const html = document.querySelector('html')
+     html.setAttribute("data-theme", theme)
+     localStorage.setItem("theme", theme)
+  }, [theme])
+
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark": "light")
+  }
 
   const handleSignout = () => {
     signoutUserFunc()
@@ -45,7 +58,7 @@ const Navbar = () => {
             </>
           )}
         </ul>
-
+          
         {/* ----------- RIGHT SIDE (Login / Avatar) ----------- */}
         <div className="flex items-center gap-3">
           {loading ? (
@@ -137,10 +150,17 @@ const Navbar = () => {
                   Register
                 </Link>
               </div>
+
             )}
           </ul>
         )}
-
+<div>
+                            <input
+           onChange={(e)=> handleTheme(e.target.checked)}
+           type="checkbox"
+           defaultChecked={localStorage.getItem('theme') === "dark"}
+           className="toggle"/>
+          </div>
       </MyContainer>
     </div>
   );

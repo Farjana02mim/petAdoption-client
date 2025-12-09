@@ -37,7 +37,7 @@ const HomePage = () => {
 
       {/* Category Section */}
       <section className="w-11/12 mx-auto my-12">
-        <h2 className="text-3xl font-bold text-center mb-8">Shop by Category</h2>
+        <h2 className="text-3xl font-bold text-orange-500 text-center mb-8">Shop by Category</h2>
         <div className="grid md:grid-cols-4 gap-6">
           {categories.map((cat) => (
             <div
@@ -46,7 +46,7 @@ const HomePage = () => {
               className="cursor-pointer bg-white rounded-xl shadow-md hover:shadow-xl p-6 flex flex-col items-center justify-center transition-transform hover:scale-105"
             >
               <span className="text-5xl mb-4">{cat.emoji}</span>
-              <h3 className="text-xl font-semibold text-center">{cat.name}</h3>
+              <h3 className="text-xl font-semibold text-black text-center">{cat.name}</h3>
             </div>
           ))}
         </div>
@@ -54,7 +54,7 @@ const HomePage = () => {
 
       {/* Recent Listings */}
       <section className="w-11/12 mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-8">Recent Listings</h2>
+        <h2 className="text-3xl font-bold text-orange-500 text-center mb-8">Recent Listings</h2>
         <div className="grid md:grid-cols-3 gap-8">
           {listings.map((listing) => (
             <Card key={listing._id} listing={listing} />
