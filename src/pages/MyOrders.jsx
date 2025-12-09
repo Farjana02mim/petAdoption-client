@@ -142,23 +142,23 @@ const MyOrders = () => {
             <tbody>
               {orders.length === 0 ? (
                 <tr>
-                  <td colSpan="8" className="text-center py-4">
+                  <td colSpan="8" className="text-center text-black py-4">
                     No orders found.
                   </td>
                 </tr>
               ) : (
                 orders.map((o) => (
                   <tr key={o._id} className="border-t">
-                    <td className="px-4 py-2">{o.productName}</td>
-                    <td className="px-4 py-2">{o.buyerName}</td>
-                    <td className="px-4 py-2">${o.price}</td>
-                    <td className="px-4 py-2">{o.quantity}</td>
-                    <td className="px-4 py-2">{o.address}</td>
-                    <td className="px-4 py-2">
+                    <td className="px-4 text-black py-2">{o.productName}</td>
+                    <td className="px-4 text-black py-2">{o.buyerName}</td>
+                    <td className="px-4 text-black py-2">${o.price}</td>
+                    <td className="px-4 text-black py-2">{o.quantity}</td>
+                    <td className="px-4 text-black py-2">{o.address}</td>
+                    <td className="px-4 text-black py-2">
                       {new Date(o.date).toLocaleDateString()}
                     </td>
-                    <td className="px-4 py-2">{o.phone}</td>
-                    <td className="px-4 py-2">
+                    <td className="px-4 text-black py-2">{o.phone}</td>
+                    <td className="px-4 text-black py-2">
                       <button
                         onClick={() => handleDelete(o._id)}
                         className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"

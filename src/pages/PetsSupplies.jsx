@@ -7,6 +7,7 @@ const PetsSupplies = () => {
   const [listings, setListings] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3000/listing")
@@ -18,14 +19,36 @@ const PetsSupplies = () => {
       .catch((err) => toast.error("Failed to load listings"));
   }, []);
 
+  // Category filter
   const handleFilter = (category) => {
     setCategoryFilter(category);
-    if (category === "All") {
-      setFiltered(listings);
-    } else {
-      const filteredData = listings.filter((l) => l.category === category);
-      setFiltered(filteredData);
+    filterListings(searchTerm, category);
+  };
+
+  // Search filter
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    filterListings(value, categoryFilter);
+  };
+
+  // Combined filter
+  const filterListings = (search, category) => {
+    let temp = [...listings];
+
+    // Filter by category
+    if (category !== "All") {
+      temp = temp.filter((l) => l.category === category);
     }
+
+    // Filter by search term
+    if (search) {
+      temp = temp.filter((l) =>
+        l.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    setFiltered(temp);
   };
 
   return (
@@ -35,8 +58,19 @@ const PetsSupplies = () => {
         Pets & Supplies
       </h2>
 
+      {/* Search Input */}
+      <div className="flex justify-center mb-6">
+        <input
+          type="text"
+          placeholder="Search by name..."
+          value={searchTerm}
+          onChange={handleSearch}
+          className="border border-gray-300 p-2 text-black rounded-lg w-full max-w-md focus:outline-none focus:ring-2 focus:ring-pink-400"
+        />
+      </div>
+
       {/* Category Filter */}
-      <div className="flex justify-center gap-4 mb-6 flex-wrap">
+      <div className="flex justify-center text-black gap-4 mb-6 flex-wrap">
         {["All", "Pets", "Food", "Accessories", "Care Products"].map((cat) => (
           <button
             key={cat}
