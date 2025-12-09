@@ -1,6 +1,9 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Typewriter } from "react-simple-typewriter";
+import { motion } from "framer-motion";
+
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -16,26 +19,26 @@ const Banner = () => {
       id: 1,
       image: slide1,
       title: "Find Your Furry Friend Today!",
-      subtitle: "Connect with loving pets waiting for a forever home."
+      subtitle: "Connect with loving pets waiting for a forever home.",
     },
     {
       id: 2,
       image: slide2,
       title: "Adopt, Don’t Shop",
-      subtitle: "Give a pet a home — they deserve love and care."
+      subtitle: "Give a pet a home — they deserve love and care.",
     },
     {
       id: 3,
       image: slide3,
       title: "Every Pet Deserves Care",
-      subtitle: "Discover trusted pet services and adoption options."
+      subtitle: "Discover trusted pet services and adoption options.",
     },
     {
       id: 4,
       image: slide4,
       title: "Bring Joy Home",
-      subtitle: "Adopt a pet and make a lifetime of memories together."
-    }
+      subtitle: "Adopt a pet and make a lifetime of memories together.",
+    },
   ];
 
   return (
@@ -52,21 +55,49 @@ const Banner = () => {
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="relative w-full h-full">
-              <img
+            <div className="relative w-full h-full overflow-hidden">
+              
+              {/* Animated Image */}
+              <motion.img
                 src={slide.image}
                 alt={slide.title}
                 className="w-full h-full object-cover brightness-75"
+                initial={{ scale: 1.05 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 2, ease: "easeOut" }}
               />
 
               {/* Text Overlay */}
               <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-16 text-white">
-                <h2 className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
-                  {slide.title}
-                </h2>
-                <p className="text-lg md:text-2xl drop-shadow-md">
+                
+                {/* Animated Title */}
+                <motion.h2
+                  className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <Typewriter
+                    words={[slide.title]}
+                    loop={1}
+                    cursor
+                    cursorStyle="|"
+                    typeSpeed={70}
+                    deleteSpeed={50}
+                    delaySpeed={2000}
+                  />
+                </motion.h2>
+
+                {/* Animated Subtitle */}
+                <motion.p
+                  className="text-lg md:text-2xl drop-shadow-md"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.5 }}
+                >
                   {slide.subtitle}
-                </p>
+                </motion.p>
+
               </div>
             </div>
           </SwiperSlide>
