@@ -96,7 +96,7 @@ const ListingDetails = () => {
           <div className="md:w-1/2 p-8 space-y-4">
             <h2 className="text-3xl font-bold text-pink-600">{listing.name}</h2>
             <p className="text-gray-700">{listing.description}</p>
-            <div className="grid grid-cols-2 gap-3 text-gray-700 mt-4">
+            <div className="grid text-gray-700 mt-4">
               <p><strong>Category:</strong> {listing.category}</p>
               <p><strong>Owner Email:</strong> {listing.email}</p>
               <p><strong>Price:</strong> {parseInt(listing.price) > 0 ? `$${listing.price}` : "Free for Adoption"}</p>

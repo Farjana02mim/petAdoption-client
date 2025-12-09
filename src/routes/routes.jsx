@@ -7,6 +7,7 @@ import Signin from "../pages/Login";
 import AddListing from "../pages/AddListing";
 import ListingDetails from "../pages/ListingDetails";
 import MyOrders from "../pages/MyOrders";
+import MyListings from "../pages/MyListings"; // নতুন import
 import PrivateRoute from "../privateRoute/PrivateRoute";
 import NotFound from "../pages/NotFound";
 import CategoryFilteredProducts from "../pages/CategoryFilteredProducts";
@@ -42,6 +43,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyOrders />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-listings", // নতুন route
+        element: (
+          <PrivateRoute>
+            <MyListings />
           </PrivateRoute>
         ),
       },
