@@ -42,9 +42,6 @@ const Navbar = () => {
               <li><MyLink to="/add-listing">Add Listing</MyLink></li>
               <li><MyLink to="/my-listings">My Listings</MyLink></li>
               <li><MyLink to="/my-orders">My Orders</MyLink></li>
-              <li><MyLink to="/add-listing">Add Listing</MyLink></li>
-              <li><MyLink to="/my-listings">My Listings</MyLink></li>
-              <li><MyLink to="/my-orders">My Orders</MyLink></li>
             </>
           )}
         </ul>

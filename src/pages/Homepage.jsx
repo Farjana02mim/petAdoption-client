@@ -6,7 +6,7 @@ import HomeExtras from "../components/HomeExtras";
 import ExtraSection from "./ExtraSection";
 
 const categories = [
-  { name: "Pets (Adoption)", emoji: "🐶" },
+  { name: "Pets", emoji: "🐶" },
   { name: "Pet Food", emoji: "🍖" },
   { name: "Accessories", emoji: "🧸" },
   { name: "Pet Care Products", emoji: "🧴" },
@@ -16,9 +16,9 @@ const HomePage = () => {
   const [listings, setListings] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch latest 6 listings from MongoDB
+  // Fetch latest 6 listings from backend
   useEffect(() => {
-    fetch("http://localhost:3000/latest-list") // your backend endpoint
+    fetch("http://localhost:3000/latest-list")
       .then((res) => res.json())
       .then((data) => setListings(data))
       .catch((err) => console.error("Failed to load listings:", err));
@@ -30,7 +30,6 @@ const HomePage = () => {
 
   return (
     <div className="space-y-20">
-
       {/* Banner */}
       <section>
         <Banner />
@@ -63,12 +62,11 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Home Extras / Pet Heroes Section */}
+      {/* Extras */}
       <section className="w-11/12 mx-auto">
         <HomeExtras />
       </section>
 
-      {/* Extra Section / Awareness */}
       <section className="w-11/12 mx-auto">
         <ExtraSection />
       </section>
