@@ -8,7 +8,10 @@ const MyListings = () => {
   const { user } = useContext(AuthContext);
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [editingListing, setEditingListing] = useState(null);
+  const [updatedData, setUpdatedData] = useState({ name: "", category: "", price: "", location: "" });
 
+  // Fetch listings
   useEffect(() => {
     if (!user) return;
 
@@ -16,7 +19,7 @@ const MyListings = () => {
       setLoading(true);
       try {
         const token = await user.getIdToken();
-        const res = await fetch(`http://localhost:3000/listings`, {
+        const res = await fetch(`http://localhost:3000/listings?email=${user.email}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -31,6 +34,7 @@ const MyListings = () => {
     fetchListings();
   }, [user]);
 
+  // Delete listing
   const handleDelete = async (id) => {
     const result = await Swal.fire({
       title: "Are you sure?",
@@ -45,7 +49,7 @@ const MyListings = () => {
     if (result.isConfirmed) {
       try {
         const token = await user.getIdToken();
-        const res = await fetch(`http://localhost:3000/listings/${id}`, {
+        const res = await fetch(`http://localhost:3000/listing/${id}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -60,6 +64,45 @@ const MyListings = () => {
       } catch (err) {
         Swal.fire("Error!", "Delete failed.", "error");
       }
+    }
+  };
+
+  // Open edit modal
+  const handleEdit = (listing) => {
+    setEditingListing(listing);
+    setUpdatedData({
+      name: listing.name,
+      category: listing.category,
+      price: listing.price,
+      location: listing.location,
+    });
+  };
+
+  // Update listing
+  const handleUpdate = async () => {
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch(`http://localhost:3000/listing/${editingListing._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedData),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setListings(
+          listings.map((l) => (l._id === editingListing._id ? { ...l, ...updatedData } : l))
+        );
+        setEditingListing(null);
+        Swal.fire("Updated!", "Listing has been updated.", "success");
+      } else {
+        Swal.fire("Error!", "Update failed.", "error");
+      }
+    } catch (err) {
+      Swal.fire("Error!", "Update failed.", "error");
     }
   };
 
@@ -100,7 +143,7 @@ const MyListings = () => {
                     <td className="px-4 py-2 flex gap-2">
                       <button
                         className="bg-orange-300 px-2 py-1 rounded text-white"
-                        onClick={() => toast.info("Update feature coming soon")}
+                        onClick={() => handleEdit(l)}
                       >
                         Update
                       </button>
@@ -116,6 +159,57 @@ const MyListings = () => {
               )}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* Edit Modal */}
+      {editingListing && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg w-96">
+            <h3 className="text-xl font-bold mb-4">Update Listing</h3>
+            <input
+              type="text"
+              className="border p-2 w-full mb-2"
+              placeholder="Name"
+              value={updatedData.name}
+              onChange={(e) => setUpdatedData({ ...updatedData, name: e.target.value })}
+            />
+            <input
+              type="text"
+              className="border p-2 w-full mb-2"
+              placeholder="Category"
+              value={updatedData.category}
+              onChange={(e) => setUpdatedData({ ...updatedData, category: e.target.value })}
+            />
+            <input
+              type="number"
+              className="border p-2 w-full mb-2"
+              placeholder="Price"
+              value={updatedData.price}
+              onChange={(e) => setUpdatedData({ ...updatedData, price: e.target.value })}
+            />
+            <input
+              type="text"
+              className="border p-2 w-full mb-4"
+              placeholder="Location"
+              value={updatedData.location}
+              onChange={(e) => setUpdatedData({ ...updatedData, location: e.target.value })}
+            />
+            <div className="flex justify-end gap-2">
+              <button
+                className="bg-gray-400 px-4 py-2 rounded text-white"
+                onClick={() => setEditingListing(null)}
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-green-500 px-4 py-2 rounded text-white"
+                onClick={handleUpdate}
+              >
+                Save
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
