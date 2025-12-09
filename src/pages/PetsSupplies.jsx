@@ -9,13 +9,20 @@ const PetsSupplies = () => {
   const [categoryFilter, setCategoryFilter] = useState("All");
 
   useEffect(() => {
-    fetch("http://localhost:5000/listings")
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchListings = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/listing");
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const data = await res.json();
+        console.log("Fetched listings:", data); // ✅ debug
         setListings(data);
         setFiltered(data);
-      })
-      .catch((err) => toast.error("Failed to load listings"));
+      } catch (err) {
+        console.error("Fetch listings error:", err);
+        toast.error(err.message);
+      }
+    };
+    fetchListings();
   }, []);
 
   const handleFilter = (category) => {
@@ -23,8 +30,7 @@ const PetsSupplies = () => {
     if (category === "All") {
       setFiltered(listings);
     } else {
-      const filteredData = listings.filter((l) => l.category === category);
-      setFiltered(filteredData);
+      setFiltered(listings.filter((l) => l.category === category));
     }
   };
 
@@ -36,7 +42,6 @@ const PetsSupplies = () => {
         Pets & Supplies
       </h2>
 
-      {/* Category Filter */}
       <div className="flex justify-center gap-4 mb-6 flex-wrap">
         {["All", "Pets", "Food", "Accessories", "Care Products"].map((cat) => (
           <button
@@ -53,7 +58,6 @@ const PetsSupplies = () => {
         ))}
       </div>
 
-      {/* Listings Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filtered.length === 0 ? (
           <p className="text-center col-span-3">No listings found.</p>

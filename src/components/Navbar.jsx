@@ -34,7 +34,7 @@ const Navbar = () => {
         <ul className="hidden lg:flex items-center gap-4 text-white font-medium">
 
           <li><MyLink to="/">Home</MyLink></li>
-          <li><MyLink to="/pets">Pets & Supplies</MyLink></li>
+          <li><MyLink to="/pets-supplies">Pets & Supplies</MyLink></li>
 
           {/* After Login Menus */}
           {user && (

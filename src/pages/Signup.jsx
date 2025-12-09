@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import MyContainer from "../components/MyContainer";
 import { FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../context/AuthContext";
 
 const Signup = () => {
@@ -56,7 +57,7 @@ const Signup = () => {
       toast.success("Signup successful!");
       navigate("/");
     } catch (err) {
-      toast.error(err.message);
+      toast.error(err.message || "Signup failed!");
     } finally {
       setLoadingBtn(false);
     }
@@ -85,6 +86,9 @@ const Signup = () => {
       </div>
 
       <MyContainer>
+        {/* Add ToastContainer here */}
+        <ToastContainer position="top-right" autoClose={3000} />
+
         <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10 p-6 lg:p-10 text-gray-800">
           {/* Left */}
           <div className="max-w-lg text-center lg:text-left">
