@@ -1,16 +1,36 @@
-# React + Vite
+# PawMart
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live Site:** 
 
-Currently, two official plugins are available:
+PawMart is a modern and user-friendly platform connecting local pet owners and buyers for pet adoption and pet care products. It provides a safe and enjoyable way to adopt pets while also offering a marketplace for pet-related items.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Easy Pet Adoption:** Browse pets available for adoption and connect with trusted owners directly.  
+- **Pet Products Marketplace:** Explore and purchase pet food, accessories, and care products with ease.  
+- **Secure Authentication:** Sign up or log in using email/password or Google account with Firebase Authentication.  
+- **Interactive and Animated UI:** Enjoy an engaging interface with Swiper carousels, typewriter headings, Framer Motion animations, and responsive layouts.  
+- **Manage Listings & Orders:** Pet owners can add, edit, or delete their listings; users can place orders and view adoption requests.  
+- **Dark/Light Mode Toggle:** Switch between dark and light themes for comfortable browsing.  
+- **PDF Report Generation:** Export your orders as PDF reports for record-keeping and tracking.  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies Used
+
+- **Frontend:** React.js, React Router, Tailwind CSS, DaisyUI  
+- **Backend:** Express.js, MongoDB  
+- **Authentication:** Firebase Authentication (Email/Password + Google Login)  
+- **Animations:** Framer Motion, React Simple Typewriter  
+- **Carousel:** Swiper.js  
+- **PDF Reports:** jsPDF & jsPDF-AutoTable  
+
+---
+
+## Getting Started
+
+1. Clone the repository:  
+```bash
+git clone https://github.com/Farjana02mim/petAdoption-client.git
