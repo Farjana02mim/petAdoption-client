@@ -86,11 +86,10 @@ const Signup = () => {
       </div>
 
       <MyContainer>
-        {/* Add ToastContainer here */}
         <ToastContainer position="top-right" autoClose={3000} />
 
         <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10 p-6 lg:p-10 text-gray-800">
-          {/* Left */}
+          
           <div className="max-w-lg text-center lg:text-left">
             <h1 className="text-5xl font-extrabold text-[#E0557E] drop-shadow">
               Create Your Account
@@ -100,7 +99,7 @@ const Signup = () => {
             </p>
           </div>
 
-          {/* Form */}
+          
           <div className="w-full max-w-md backdrop-blur-xl bg-white/60 border border-pink-200 shadow-xl rounded-2xl p-8">
             <h2 className="text-2xl font-semibold mb-4 text-center text-[#D9466E]">
               Register Now

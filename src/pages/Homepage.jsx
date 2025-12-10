@@ -18,7 +18,7 @@ const HomePage = () => {
 
   // Fetch latest 6 listings from backend
   useEffect(() => {
-    fetch("https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/latest-list")
+    fetch("http://localhost:3000/latest-list")
       .then((res) => res.json())
       .then((data) => setListings(data))
       .catch((err) => console.error("Failed to load listings:", err));
@@ -30,7 +30,7 @@ const HomePage = () => {
 
   return (
     <div className="space-y-20">
-      {/* Banner */}
+      
       <section>
         <Banner />
       </section>

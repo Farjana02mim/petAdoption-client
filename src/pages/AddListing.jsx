@@ -33,7 +33,7 @@ const AddListing = () => {
 
     try {
       
-      const res = await fetch("https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/listing", {
+      const res = await fetch("http://localhost:3000/listing", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

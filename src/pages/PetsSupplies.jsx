@@ -10,7 +10,7 @@ const PetsSupplies = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/listing")
+    fetch("http://localhost:3000/listing")
       .then((res) => res.json())
       .then((data) => {
         setListings(data);
@@ -86,7 +86,6 @@ const PetsSupplies = () => {
         ))}
       </div>
 
-      {/* Listings Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filtered.length === 0 ? (
           <p className="text-center col-span-3">No listings found.</p>

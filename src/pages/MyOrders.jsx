@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable"; // ✅ Proper import
+import autoTable from "jspdf-autotable";
 import "react-toastify/dist/ReactToastify.css";
 
 const MyOrders = () => {
@@ -20,7 +20,7 @@ const MyOrders = () => {
       try {
         const token = await user.getIdToken();
         const res = await fetch(
-          `https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/my-downloads?email=${user.email}`,
+          `http://localhost:3000/my-downloads?email=${user.email}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -91,7 +91,7 @@ const MyOrders = () => {
 
     try {
       const token = await user.getIdToken();
-      const res = await fetch(`https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/orders/${id}`, {
+      const res = await fetch(`http://localhost:3000/orders/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

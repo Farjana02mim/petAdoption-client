@@ -11,7 +11,7 @@ const CategoryFilteredProducts = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/category/${categoryName}`)
+    fetch(`http://localhost:3000/category/${categoryName}`)
       .then((res) => res.json())
       .then((data) => {
         setItems(data);

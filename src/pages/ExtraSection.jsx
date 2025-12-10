@@ -12,7 +12,7 @@ const ExtraSection = () => {
           </p>
         </div>
 
-        {/* Accessories Section */}
+        
         <div>
           <h2 className="text-3xl font-bold text-orange-500 text-center mb-8">Winter Pet Accessories ❄️</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
