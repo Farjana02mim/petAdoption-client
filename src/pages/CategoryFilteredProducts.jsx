@@ -15,13 +15,11 @@ const CategoryFilteredProducts = () => {
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
-        setLoading(false);
       })
       .catch((err) => {
-        //console.error("Failed to load category items:", err);
         toast.error("Failed to load category items");
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false)); // spinner stop
   }, [categoryName]);
 
   return (
@@ -32,7 +30,9 @@ const CategoryFilteredProducts = () => {
       </h1>
 
       {loading ? (
-        <p className="text-center text-gray-500">Loading...</p>
+        <div className="flex justify-center items-center min-h-[200px]">
+          <div className="w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"></div>
+        </div>
       ) : items.length === 0 ? (
         <p className="text-center text-gray-500">No products found.</p>
       ) : (

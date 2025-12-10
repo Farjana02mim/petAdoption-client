@@ -14,11 +14,13 @@ const categories = [
 
 const HomePage = () => {
   const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(true); // 👈 Loading state
   const navigate = useNavigate();
 
   // Fetch latest 6 listings from backend
   useEffect(() => {
-    fetch("https://pet-adoption-server-kq4ydiej9-farjana-akter-mims-projects.vercel.app/latest-list")
+    setLoading(true); // spinner start
+    fetch("https://pet-adoption-server-chi.vercel.app/latest-list")
       .then((res) => res.json())
       .then((data) => {
         console.log("LATEST LIST API DATA:", data);
@@ -34,7 +36,8 @@ const HomePage = () => {
 
         setListings(array);
       })
-      .catch((err) => console.error("Failed to load listings:", err));
+      .catch((err) => console.error("Failed to load listings:", err))
+      .finally(() => setLoading(false)); // spinner stop
   }, []);
 
   const handleCategoryClick = (category) => {
@@ -75,7 +78,11 @@ const HomePage = () => {
           Recent Listings
         </h2>
         <div className="grid md:grid-cols-3 gap-8">
-          {listings.length === 0 ? (
+          {loading ? (
+            <div className="flex items-center justify-center col-span-3 min-h-[200px]">
+              <div className="w-16 h-16 border-4 border-orange-400 border-dashed rounded-full animate-spin"></div>
+            </div>
+          ) : listings.length === 0 ? (
             <p className="text-center col-span-3">No recent listings found.</p>
           ) : (
             listings.map((listing) => (

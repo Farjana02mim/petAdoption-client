@@ -11,6 +11,8 @@ const MyListings = () => {
   const [editingListing, setEditingListing] = useState(null);
   const [updatedData, setUpdatedData] = useState({ name: "", category: "", price: "", location: "" });
 
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+
   // Fetch listings
   useEffect(() => {
     if (!user) return;
@@ -19,14 +21,10 @@ const MyListings = () => {
       setLoading(true);
       try {
         const token = await user.getIdToken();
-        const res = await fetch(
-          `https://pet-adoption-server-chi.vercel.app/listings?email=${user.email}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const res = await fetch(`${SERVER_URL}/listing?email=${user.email}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         const data = await res.json();
-        // Ensure data is always an array
         setListings(Array.isArray(data) ? data : []);
       } catch (err) {
         toast.error("Failed to load your listings");
@@ -37,7 +35,7 @@ const MyListings = () => {
     };
 
     fetchListings();
-  }, [user]);
+  }, [user, SERVER_URL]);
 
   // Delete listing
   const handleDelete = async (id) => {
@@ -54,7 +52,7 @@ const MyListings = () => {
     if (result.isConfirmed) {
       try {
         const token = await user.getIdToken();
-        const res = await fetch(`https://pet-adoption-server-chi.vercel.app/listing/${id}`, {
+        const res = await fetch(`${SERVER_URL}/listing/${id}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -87,7 +85,7 @@ const MyListings = () => {
   const handleUpdate = async () => {
     try {
       const token = await user.getIdToken();
-      const res = await fetch(`https://pet-adoption-server-chi.vercel.app/listing/${editingListing._id}`, {
+      const res = await fetch(`${SERVER_URL}/listing/${editingListing._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
