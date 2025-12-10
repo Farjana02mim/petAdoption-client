@@ -43,13 +43,11 @@ const Navbar = () => {
           </h1>
         </div>
 
-        {/* ----------- MENU (Desktop) ----------- */}
         <ul className="hidden lg:flex items-center gap-4 text-white font-medium">
 
           <li><MyLink to="/">Home</MyLink></li>
           <li><MyLink to="/pets-supplies">Pets & Supplies</MyLink></li>
 
-          {/* After Login Menus */}
           {user && (
             <>
               <li><MyLink to="/add-listing">Add Listing</MyLink></li>
@@ -59,7 +57,6 @@ const Navbar = () => {
           )}
         </ul>
           
-        {/* ----------- RIGHT SIDE (Login / Avatar) ----------- */}
         <div className="flex items-center gap-3">
           {loading ? (
             <ClockLoader color="#fff" size={25} />
@@ -95,7 +92,7 @@ const Navbar = () => {
             </div>
           )}
 
-          {/* ----------- MOBILE MENU BUTTON ----------- */}
+         
           <div className="lg:hidden">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -118,7 +115,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* ----------- MOBILE MENU ----------- */}
+       
         {menuOpen && (
           <ul className="absolute top-full left-0 w-full bg-pink-500 text-white flex flex-col gap-2 p-4 lg:hidden z-20">
             

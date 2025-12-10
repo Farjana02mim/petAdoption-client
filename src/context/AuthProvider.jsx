@@ -37,7 +37,6 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  // Updated name for Google Sign-In
   const signInWithGoogleFunc = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
@@ -65,7 +64,7 @@ const AuthProvider = ({ children }) => {
     setLoading,
     createUserWithEmailAndPasswordFunc,
     signInWithEmailAndPasswordFunc,
-    signInWithGoogleFunc, // Updated here
+    signInWithGoogleFunc, 
     signInWithGithubFunc,
     signoutUserFunc,
     sendPassResetEmailFunc,

@@ -57,7 +57,7 @@ const Banner = () => {
           <SwiperSlide key={slide.id}>
             <div className="relative w-full h-full overflow-hidden">
               
-              {/* Animated Image */}
+              
               <motion.img
                 src={slide.image}
                 alt={slide.title}
@@ -67,10 +67,10 @@ const Banner = () => {
                 transition={{ duration: 2, ease: "easeOut" }}
               />
 
-              {/* Text Overlay */}
+             
               <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-16 text-white">
                 
-                {/* Animated Title */}
+                
                 <motion.h2
                   className="text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg"
                   initial={{ opacity: 0, y: -20 }}
@@ -88,7 +88,6 @@ const Banner = () => {
                   />
                 </motion.h2>
 
-                {/* Animated Subtitle */}
                 <motion.p
                   className="text-lg md:text-2xl drop-shadow-md"
                   initial={{ opacity: 0 }}

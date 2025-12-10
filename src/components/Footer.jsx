@@ -7,7 +7,6 @@ const Footer = () => {
       <div className="w-11/12 mx-auto">
         <div className="grid md:grid-cols-3 gap-10">
 
-          {/* ---------- LEFT: LOGO + ABOUT ---------- */}
           <div className="space-y-4 max-w-sm">
             <Link to="/" className="flex gap-2 items-center">
               <img className="h-[45px] w-[45px]" src={logo} alt="Logo" />
@@ -19,7 +18,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* ---------- MIDDLE: USEFUL LINKS ---------- */}
           <div>
             <h4 className="text-xl font-semibold mb-3">Useful Links</h4>
             <ul className="space-y-2 text-white/90">
@@ -35,7 +33,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* ---------- RIGHT: CONTACT ---------- */}
           <div>
             <h4 className="text-xl font-semibold mb-3">Contact</h4>
             <ul className="space-y-2 text-white/90">
@@ -48,7 +45,7 @@ const Footer = () => {
 
         <hr className="border-white/30 mt-10" />
 
-        {/* ---------- COPYRIGHT ---------- */}
+       
         <div className="text-center py-6 text-white/90 text-sm">
           © {new Date().getFullYear()} PawMart. All rights reserved.
         </div>

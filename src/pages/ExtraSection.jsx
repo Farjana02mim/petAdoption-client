@@ -5,7 +5,6 @@ const ExtraSection = () => {
     <section className="py-12">
       <div className="container mx-auto px-4 space-y-12">
 
-        {/* Awareness Section */}
         <div className="bg-white p-8 rounded-xl shadow-md text-center">
           <h2 className="text-3xl text-orange-500 font-bold mb-4">Why Adopt from PawMart?</h2>
           <p className="text-gray-700">

@@ -11,7 +11,7 @@ const CategoryFilteredProducts = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3000/category/${categoryName}`)
+    fetch(`https://pet-adoption-server-chi.vercel.app/category/${categoryName}`)
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
