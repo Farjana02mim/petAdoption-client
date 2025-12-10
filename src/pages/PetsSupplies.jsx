@@ -10,7 +10,7 @@ const PetsSupplies = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("https://pet-adoption-server-chi.vercel.app/listing")
+    fetch("https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/listing")
       .then((res) => res.json())
       .then((data) => {
         setListings(data);

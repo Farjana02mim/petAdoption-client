@@ -71,7 +71,7 @@ const Signup = () => {
       toast.success("Signed in with Google!");
       navigate("/");
     } catch (err) {
-      console.error("Google Sign-In Error:", err);
+      //console.error("Google Sign-In Error:", err);
       toast.error(err.message || "Google sign-in failed!");
     } finally {
       setLoadingBtn(false);

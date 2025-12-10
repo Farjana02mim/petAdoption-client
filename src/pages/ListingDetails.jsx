@@ -32,7 +32,7 @@ const ListingDetails = () => {
       setLoading(true);
       try {
         const token = await user.getIdToken();
-        const res = await fetch(`https://pet-adoption-server-chi.vercel.app/listing/${id}`, {
+        const res = await fetch(`https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/listing/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -52,7 +52,7 @@ const ListingDetails = () => {
         }
       } catch (err) {
         toast.error("Failed to fetch listing");
-        console.error(err);
+        //console.error(err);
       } finally {
         setLoading(false);
       }
@@ -81,7 +81,7 @@ const ListingDetails = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(`https://pet-adoption-server-chi.vercel.app/orders/${listing._id}`, {
+      const res = await fetch(`https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/orders/${listing._id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...orderForm, downloaded_by: user.email }),

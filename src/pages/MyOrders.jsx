@@ -20,7 +20,7 @@ const MyOrders = () => {
       try {
         const token = await user.getIdToken();
         const res = await fetch(
-          `https://pet-adoption-server-chi.vercel.app/my-downloads?email=${user.email}`,
+          `https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/my-downloads?email=${user.email}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -31,7 +31,7 @@ const MyOrders = () => {
         const data = await res.json();
         setOrders(data);
       } catch (err) {
-        console.error(err);
+        //console.error(err);
         toast.error("Failed to load orders");
       } finally {
         setLoading(false);
@@ -91,7 +91,7 @@ const MyOrders = () => {
 
     try {
       const token = await user.getIdToken();
-      const res = await fetch(`https://pet-adoption-server-chi.vercel.app/orders/${id}`, {
+      const res = await fetch(`https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/orders/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -104,7 +104,7 @@ const MyOrders = () => {
         Swal.fire("Error!", "Failed to delete order.", "error");
       }
     } catch (err) {
-      console.error(err);
+     // console.error(err);
       Swal.fire("Error!", "Failed to delete order.", "error");
     }
   };

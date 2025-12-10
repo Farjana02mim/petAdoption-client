@@ -18,7 +18,7 @@ const HomePage = () => {
 
   // Fetch latest 6 listings from backend
   useEffect(() => {
-    fetch("https://pet-adoption-server-chi.vercel.app/latest-list")
+    fetch("https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/latest-list")
       .then((res) => res.json())
       .then((data) => setListings(data))
       .catch((err) => console.error("Failed to load listings:", err));

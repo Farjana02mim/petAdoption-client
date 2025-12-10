@@ -11,14 +11,14 @@ const CategoryFilteredProducts = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://pet-adoption-server-chi.vercel.app/category/${categoryName}`)
+    fetch(`https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/category/${categoryName}`)
       .then((res) => res.json())
       .then((data) => {
         setItems(data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Failed to load category items:", err);
+        //console.error("Failed to load category items:", err);
         toast.error("Failed to load category items");
         setLoading(false);
       });

@@ -19,7 +19,7 @@ const MyListings = () => {
       setLoading(true);
       try {
         const token = await user.getIdToken();
-        const res = await fetch(`https://pet-adoption-server-chi.vercel.app/listings?email=${user.email}`, {
+        const res = await fetch(`https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/listings?email=${user.email}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -49,7 +49,7 @@ const MyListings = () => {
     if (result.isConfirmed) {
       try {
         const token = await user.getIdToken();
-        const res = await fetch(`https://pet-adoption-server-chi.vercel.app/listing/${id}`, {
+        const res = await fetch(`https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/listing/${id}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -82,7 +82,7 @@ const MyListings = () => {
   const handleUpdate = async () => {
     try {
       const token = await user.getIdToken();
-      const res = await fetch(`https://pet-adoption-server-chi.vercel.app/listing/${editingListing._id}`, {
+      const res = await fetch(`https://pet-adoption-server-farjana02mim-farjana-akter-mims-projects.vercel.app/listing/${editingListing._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
