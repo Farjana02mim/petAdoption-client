@@ -18,9 +18,22 @@ const HomePage = () => {
 
   // Fetch latest 6 listings from backend
   useEffect(() => {
-    fetch("http://localhost:3000/latest-list")
+    fetch("https://pet-adoption-server-kq4ydiej9-farjana-akter-mims-projects.vercel.app/latest-list")
       .then((res) => res.json())
-      .then((data) => setListings(data))
+      .then((data) => {
+        console.log("LATEST LIST API DATA:", data);
+
+        // Safe array extraction
+        const array =
+          Array.isArray(data) ? data :
+          Array.isArray(data?.data) ? data.data :
+          Array.isArray(data?.list) ? data.list :
+          Array.isArray(data?.listings) ? data.listings :
+          Array.isArray(data?.latest) ? data.latest :
+          [];
+
+        setListings(array);
+      })
       .catch((err) => console.error("Failed to load listings:", err));
   }, []);
 
@@ -37,7 +50,9 @@ const HomePage = () => {
 
       {/* Category Section */}
       <section className="w-11/12 mx-auto my-12">
-        <h2 className="text-3xl font-bold text-orange-500 text-center mb-8">Shop by Category</h2>
+        <h2 className="text-3xl font-bold text-orange-500 text-center mb-8">
+          Shop by Category
+        </h2>
         <div className="grid md:grid-cols-4 gap-6">
           {categories.map((cat) => (
             <div
@@ -46,7 +61,9 @@ const HomePage = () => {
               className="cursor-pointer bg-white rounded-xl shadow-md hover:shadow-xl p-6 flex flex-col items-center justify-center transition-transform hover:scale-105"
             >
               <span className="text-5xl mb-4">{cat.emoji}</span>
-              <h3 className="text-xl font-semibold text-black text-center">{cat.name}</h3>
+              <h3 className="text-xl font-semibold text-black text-center">
+                {cat.name}
+              </h3>
             </div>
           ))}
         </div>
@@ -54,11 +71,17 @@ const HomePage = () => {
 
       {/* Recent Listings */}
       <section className="w-11/12 mx-auto">
-        <h2 className="text-3xl font-bold text-orange-500 text-center mb-8">Recent Listings</h2>
+        <h2 className="text-3xl font-bold text-orange-500 text-center mb-8">
+          Recent Listings
+        </h2>
         <div className="grid md:grid-cols-3 gap-8">
-          {listings.map((listing) => (
-            <Card key={listing._id} listing={listing} />
-          ))}
+          {listings.length === 0 ? (
+            <p className="text-center col-span-3">No recent listings found.</p>
+          ) : (
+            listings.map((listing) => (
+              <Card key={listing._id || listing.id} listing={listing} />
+            ))
+          )}
         </div>
       </section>
 

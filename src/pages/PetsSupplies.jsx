@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Card from "../components/Card";
@@ -10,38 +10,37 @@ const PetsSupplies = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:3000/listing")
+    fetch("https://pet-adoption-server-chi.vercel.app/listing")
       .then((res) => res.json())
       .then((data) => {
-        setListings(data);
-        setFiltered(data);
+        console.log("API DATA:", data);
+
+        const items = data?.data || data?.listings || [];
+
+        setListings(items);
+        setFiltered(items);
       })
       .catch((err) => toast.error("Failed to load listings"));
   }, []);
 
-  // Category filter
   const handleFilter = (category) => {
     setCategoryFilter(category);
     filterListings(searchTerm, category);
   };
 
-  // Search filter
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
     filterListings(value, categoryFilter);
   };
 
-  // Combined filter
   const filterListings = (search, category) => {
     let temp = [...listings];
 
-    // Filter by category
     if (category !== "All") {
       temp = temp.filter((l) => l.category === category);
     }
 
-    // Filter by search term
     if (search) {
       temp = temp.filter((l) =>
         l.name.toLowerCase().includes(search.toLowerCase())
@@ -58,7 +57,6 @@ const PetsSupplies = () => {
         Pets & Supplies
       </h2>
 
-      {/* Search Input */}
       <div className="flex justify-center mb-6">
         <input
           type="text"
@@ -69,7 +67,6 @@ const PetsSupplies = () => {
         />
       </div>
 
-      {/* Category Filter */}
       <div className="flex justify-center text-black gap-4 mb-6 flex-wrap">
         {["All", "Pets", "Food", "Accessories", "Care Products"].map((cat) => (
           <button

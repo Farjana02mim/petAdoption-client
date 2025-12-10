@@ -80,6 +80,9 @@ const AuthProvider = ({ children }) => {
 
     return () => unsubscribe();
   }, []);
+  if(loading){
+    return
+  }
 
   return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
 };

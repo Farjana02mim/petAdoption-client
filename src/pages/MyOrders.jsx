@@ -20,7 +20,7 @@ const MyOrders = () => {
       try {
         const token = await user.getIdToken();
         const res = await fetch(
-          `http://localhost:3000/my-downloads?email=${user.email}`,
+          `https://pet-adoption-server-chi.vercel.app/my-downloads?email=${user.email}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -91,7 +91,7 @@ const MyOrders = () => {
 
     try {
       const token = await user.getIdToken();
-      const res = await fetch(`http://localhost:3000/orders/${id}`, {
+      const res = await fetch(`https://pet-adoption-server-chi.vercel.app/orders/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

@@ -19,13 +19,18 @@ const MyListings = () => {
       setLoading(true);
       try {
         const token = await user.getIdToken();
-        const res = await fetch(`http://localhost:3000/listings?email=${user.email}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await fetch(
+          `https://pet-adoption-server-chi.vercel.app/listings?email=${user.email}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         const data = await res.json();
-        setListings(data);
+        // Ensure data is always an array
+        setListings(Array.isArray(data) ? data : []);
       } catch (err) {
         toast.error("Failed to load your listings");
+        setListings([]);
       } finally {
         setLoading(false);
       }
@@ -49,7 +54,7 @@ const MyListings = () => {
     if (result.isConfirmed) {
       try {
         const token = await user.getIdToken();
-        const res = await fetch(`http://localhost:3000/listing/${id}`, {
+        const res = await fetch(`https://pet-adoption-server-chi.vercel.app/listing/${id}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -82,7 +87,7 @@ const MyListings = () => {
   const handleUpdate = async () => {
     try {
       const token = await user.getIdToken();
-      const res = await fetch(`http://localhost:3000/listing/${editingListing._id}`, {
+      const res = await fetch(`https://pet-adoption-server-chi.vercel.app/listing/${editingListing._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
