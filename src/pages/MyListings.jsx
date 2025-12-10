@@ -4,14 +4,14 @@ import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import "react-toastify/dist/ReactToastify.css";
 
+const SERVER_URL = "https://pet-adoption-server-chi.vercel.app";
+
 const MyListings = () => {
   const { user } = useContext(AuthContext);
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editingListing, setEditingListing] = useState(null);
   const [updatedData, setUpdatedData] = useState({ name: "", category: "", price: "", location: "" });
-
-  const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
   // Fetch listings
   useEffect(() => {
@@ -24,10 +24,11 @@ const MyListings = () => {
         const res = await fetch(`${SERVER_URL}/listing?email=${user.email}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
+        if (!res.ok) throw new Error("Failed to fetch listings");
         const data = await res.json();
         setListings(Array.isArray(data) ? data : []);
       } catch (err) {
-        toast.error("Failed to load your listings");
+        toast.error(err.message || "Failed to load your listings");
         setListings([]);
       } finally {
         setLoading(false);
@@ -35,7 +36,7 @@ const MyListings = () => {
     };
 
     fetchListings();
-  }, [user, SERVER_URL]);
+  }, [user]);
 
   // Delete listing
   const handleDelete = async (id) => {
@@ -62,15 +63,15 @@ const MyListings = () => {
           setListings(listings.filter((l) => l._id !== id));
           Swal.fire("Deleted!", "Listing has been deleted.", "success");
         } else {
-          Swal.fire("Error!", "Delete failed.", "error");
+          Swal.fire("Error!", data.message || "Delete failed.", "error");
         }
       } catch (err) {
-        Swal.fire("Error!", "Delete failed.", "error");
+        Swal.fire("Error!", err.message || "Delete failed.", "error");
       }
     }
   };
 
-  // Open edit modal
+  // Edit listing
   const handleEdit = (listing) => {
     setEditingListing(listing);
     setUpdatedData({
@@ -96,23 +97,20 @@ const MyListings = () => {
       const data = await res.json();
 
       if (data.success) {
-        setListings(
-          listings.map((l) => (l._id === editingListing._id ? { ...l, ...updatedData } : l))
-        );
+        setListings(listings.map((l) => (l._id === editingListing._id ? { ...l, ...updatedData } : l)));
         setEditingListing(null);
         Swal.fire("Updated!", "Listing has been updated.", "success");
       } else {
-        Swal.fire("Error!", "Update failed.", "error");
+        Swal.fire("Error!", data.message || "Update failed.", "error");
       }
     } catch (err) {
-      Swal.fire("Error!", "Update failed.", "error");
+      Swal.fire("Error!", err.message || "Update failed.", "error");
     }
   };
 
   return (
     <div className="min-h-screen p-6 bg-gradient-to-br from-[#FFF5EB] via-[#FCE7F3] to-[#F3F4F6]">
       <ToastContainer position="top-right" autoClose={3000} />
-
       <h2 className="text-3xl font-bold text-pink-600 mb-6">My Listings</h2>
 
       {loading ? (
@@ -132,9 +130,7 @@ const MyListings = () => {
             <tbody>
               {listings.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="text-center py-4">
-                    No listings found.
-                  </td>
+                  <td colSpan="5" className="text-center py-4">No listings found.</td>
                 </tr>
               ) : (
                 listings.map((l) => (
@@ -144,18 +140,8 @@ const MyListings = () => {
                     <td className="px-4 text-black py-2">${l.price}</td>
                     <td className="px-4 text-black py-2">{l.location}</td>
                     <td className="px-4 text-black py-2 flex gap-2">
-                      <button
-                        className="bg-orange-300 px-2 py-1 rounded text-white"
-                        onClick={() => handleEdit(l)}
-                      >
-                        Update
-                      </button>
-                      <button
-                        className="bg-red-400 px-2 py-1 rounded text-white"
-                        onClick={() => handleDelete(l._id)}
-                      >
-                        Delete
-                      </button>
+                      <button className="bg-orange-300 px-2 py-1 rounded text-white" onClick={() => handleEdit(l)}>Update</button>
+                      <button className="bg-red-400 px-2 py-1 rounded text-white" onClick={() => handleDelete(l._id)}>Delete</button>
                     </td>
                   </tr>
                 ))
@@ -165,52 +151,18 @@ const MyListings = () => {
         </div>
       )}
 
-      {/* Edit Modal */}
+      
       {editingListing && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg w-96">
             <h3 className="text-xl font-bold mb-4">Update Listing</h3>
-            <input
-              type="text"
-              className="border p-2 w-full mb-2"
-              placeholder="Name"
-              value={updatedData.name}
-              onChange={(e) => setUpdatedData({ ...updatedData, name: e.target.value })}
-            />
-            <input
-              type="text"
-              className="border p-2 w-full mb-2"
-              placeholder="Category"
-              value={updatedData.category}
-              onChange={(e) => setUpdatedData({ ...updatedData, category: e.target.value })}
-            />
-            <input
-              type="number"
-              className="border p-2 w-full mb-2"
-              placeholder="Price"
-              value={updatedData.price}
-              onChange={(e) => setUpdatedData({ ...updatedData, price: e.target.value })}
-            />
-            <input
-              type="text"
-              className="border p-2 w-full mb-4"
-              placeholder="Location"
-              value={updatedData.location}
-              onChange={(e) => setUpdatedData({ ...updatedData, location: e.target.value })}
-            />
+            <input type="text" className="border p-2 w-full mb-2" placeholder="Name" value={updatedData.name} onChange={(e) => setUpdatedData({ ...updatedData, name: e.target.value })} />
+            <input type="text" className="border p-2 w-full mb-2" placeholder="Category" value={updatedData.category} onChange={(e) => setUpdatedData({ ...updatedData, category: e.target.value })} />
+            <input type="number" className="border p-2 w-full mb-2" placeholder="Price" value={updatedData.price} onChange={(e) => setUpdatedData({ ...updatedData, price: e.target.value })} />
+            <input type="text" className="border p-2 w-full mb-4" placeholder="Location" value={updatedData.location} onChange={(e) => setUpdatedData({ ...updatedData, location: e.target.value })} />
             <div className="flex justify-end gap-2">
-              <button
-                className="bg-gray-400 px-4 py-2 rounded text-white"
-                onClick={() => setEditingListing(null)}
-              >
-                Cancel
-              </button>
-              <button
-                className="bg-green-500 px-4 py-2 rounded text-white"
-                onClick={handleUpdate}
-              >
-                Save
-              </button>
+              <button className="bg-gray-400 px-4 py-2 rounded text-white" onClick={() => setEditingListing(null)}>Cancel</button>
+              <button className="bg-green-500 px-4 py-2 rounded text-white" onClick={handleUpdate}>Save</button>
             </div>
           </div>
         </div>
