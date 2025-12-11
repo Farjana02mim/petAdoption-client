@@ -28,7 +28,7 @@ const Card = ({ listing }) => {
           <p className="text-gray-600 mb-3">Location: {location}</p>
           <button
             onClick={handleViewDetails}
-            className="w-full py-2 bg-gradient-to-r from-pink-400 to-orange-300 text-white font-semibold rounded-lg hover:opacity-90 transition"
+            className="w-full py-2 bg-gradient-to-r from-pink-400 to-orange-300 text-black font-semibold rounded-lg hover:opacity-90 transition"
           >
             See Details
           </button>
